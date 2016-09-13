@@ -1,69 +1,74 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>Welcome to Firebase Hosting</title>
-    <style media="screen">
-      body {
-        font-family: Roboto, Arial, sans-serif;
-        background: #ECEFF1;
-        color: rgba(0,0,0,0.87);
-      }
+	<head>
+		<meta charset="utf-8">
+		<title>fabclip station</title>
+		<link rel="stylesheet" type="text/css" href="index.css">
 
-      a {
-        color: rgb(3,155,229);
-      }
+	</head>
 
-      #message {
-        max-width: 400px;
-        margin: 40px auto;
-        box-shadow: 0 1px 3px 0 rgba(0,0,0,0.2),0 1px 1px 0 rgba(0,0,0,0.14),0 2px 1px -1px rgba(0,0,0,0.12);
-        border-radius: 2px;
-        background: white;
-        padding: 16px 24px;
-      }
+	<body>
+		<!--
+			<form method="get" action="#" class="search">
 
-      #message h1 {
-        font-size: 22px;
-        font-weight: 500;
-        text-align: center;
-        margin: 0 0 16px;
-      }
+				<div>
+					<input type="text" name="example" class="textBox"><input type="submit" value="検索" class="btn">
+				</div>
 
-      #message p {
-        font-weight: 300;
-        line-height: 150%;
-      }
+			</form>
+		-->
+		<center>
+			<table class = "title" table rules = "none">
+				<tr>
+					<td><p>fabclip station</p></td>
+				</tr>
+			</table>
+			<table class = "button" table rules = "none">
+				<tr>
+					<td style="background:#ff0000"><a href="http://www.google.com/" style="text-decoration:none"><h2>ALL</h2></a></td>
+					<td style="background:#008000"><a href="http://www.google.com/" style="text-decoration:none"><h2>エンタメ</h2></a></td>
+				</tr>
+				<tr>
+					<td style="background:#9400D3"><a href="http://www.google.com/" style="text-decoration:none"><h2>IT</h2></a></td>
+					<td style="background:#FF8C00"><a href="http://www.google.com/" style="text-decoration:none"><h2>ファッション</h2></a></td>
+				</tr>
+				<tr>
+					<td style="background:#000080"><a href="http://www.google.com/" style="text-decoration:none"><h2>ニュース</h2></a></td>
+					<td style="background:#e4007f"><a href="http://www.google.com/" style="text-decoration:none"><h2>グルメ</h2></a></td>
+				</tr>
+				<tr>
+					<td style="background:#0000ff"><a href="http://www.google.com/" style="text-decoration:none"><h2>スポーツ</h2></a></td>
+					<td style="background:#4387e9"><a href="http://www.google.com/" style="text-decoration:none"><h2>ホビー</h2></a></td>
+				</tr>
+			</table>
+			<br>
+			<br>
 
-      #message ul {
-        list-style: none;
-        margin: 16px 0 0;
-        padding: 0;
-        text-align: center;
-      }
+			<table class = "streaming" table rules = "all" border = "0">
+				<tr>
+					<td><img src="data/back.jpg" width="100" height="100"></td>
+					<td></td>
+					<td><audio src="data/sample.wav" controls><img src="data/Start.jpg" width="100" height="100"></audio></td>
+					<td></td>
+					<td><img src="data/front.png" width="100" height="100"></td>
+				</tr>
+				<!--
+				<input id="edit_02_url" style="width:100%;"></input><br>
+				<input type="button" id="button_02_load" style="width:80px; height:40px; margin:0px 0px 10px 0px;" value="読み込み">
+				<input type="button" id="button_02_play" style="width:80px; height:40px; margin:0px 0px 10px 0px;" value="再生">
+				<input type="button" id="button_02_pause" style="width:80px; height:40px; margin:0px 0px 10px 0px;" value="一時停止">
+				<input type="button" id="button_02_stop" style="width:80px; height:40px; margin:0px 0px 10px 0px;" value="停止"><br>
 
-      #message li a {
-        display: inline-block;
-        padding: 8px;
-        text-transform: uppercase;
-        text-decoration: none;
-        font-weight: 500;
-        background: rgb(3,155,229);
-        color: white;
-        border: 1px solid rgb(3,155,229);
-        border-radius: 3px;
-        font-size: 14px;
-        box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
-      }
-    </style>
-  </head>
-  <body>
-    <div id="message">
-      <h1>Hello!</h1>
-      <p>You're seeing this because you've successfully setup Firebase Hosting. Now it's time to go build something extraordinary!</p>
-      <ul>
-        <li><a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a></li>
-      </ul>
-    </div>
+				<input type="range" id="edit_02_slider" style="width:100%;" min="0" max="1.0" step="0.00001" value="0.0"></input><br>
+
+				<div style="width:100%; margin:0px 0px 10px 0px;">
+					<span style="margin:0px 50px 0px 0px;">自動再生:<input type="checkbox" id="input_02_autoplay" checked></span>
+					<span style="margin:0px 50px 0px 0px;">ループ:<input type="checkbox" id="input_02_loop"></span>
+					<span style="margin:0px 50px 0px 0px;">再生速度:<input type="number" id="input_02_rate" value="1.0" min="-10.0" max="10.0" step="0.01"></span>
+				</div>
+				-->	
+			<table>
+
+		</center>
   </body>
 </html>
