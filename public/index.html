@@ -4,6 +4,8 @@
 		<meta charset="utf-8">
 		<title>fabclip station</title>
 		<link rel="stylesheet" type="text/css" href="index.css">
+		<script src="https://www.gstatic.com/firebasejs/3.3.2/firebase.js"></script>
+		<script src = "https://code.jquery.com/jquery-3.1.0.min.js"></script>
 
 	</head>
 
@@ -25,49 +27,467 @@
 			</table>
 			<table class = "button" table rules = "none">
 				<tr>
-					<td style="background:#ff0000"><a href="http://www.google.com/" style="text-decoration:none"><h2>ALL</h2></a></td>
-					<td style="background:#008000"><a href="http://www.google.com/" style="text-decoration:none"><h2>エンタメ</h2></a></td>
+					<td class = "all"><a id = "al" style="text-decoration:none"><h2>ALL</h2></a></td>
+					<td style="background:#008000"><a id = 'en' style="text-decoration:none"><h2>エンタメ</h2></a></td>
 				</tr>
 				<tr>
-					<td style="background:#9400D3"><a href="http://www.google.com/" style="text-decoration:none"><h2>IT</h2></a></td>
-					<td style="background:#FF8C00"><a href="http://www.google.com/" style="text-decoration:none"><h2>ファッション</h2></a></td>
+					<td style="background:#9400D3"><a id = 'it' style="text-decoration:none"><h2>IT</h2></a></td>
+					<td style="background:#FF8C00"><a id = 'fa' style="text-decoration:none"><h2>ファッション</h2></a></td>
 				</tr>
 				<tr>
-					<td style="background:#000080"><a href="http://www.google.com/" style="text-decoration:none"><h2>ニュース</h2></a></td>
-					<td style="background:#e4007f"><a href="http://www.google.com/" style="text-decoration:none"><h2>グルメ</h2></a></td>
+					<td style="background:#000080"><a id = 'ne' style="text-decoration:none"><h2>ニュース</h2></a></td>
+					<td style="background:#e4007f"><a id = 'gu' style="text-decoration:none"><h2>グルメ</h2></a></td>
 				</tr>
 				<tr>
-					<td style="background:#0000ff"><a href="http://www.google.com/" style="text-decoration:none"><h2>スポーツ</h2></a></td>
-					<td style="background:#4387e9"><a href="http://www.google.com/" style="text-decoration:none"><h2>ホビー</h2></a></td>
+					<td style="background:#0000ff"><a id = 'sp' style="text-decoration:none"><h2>スポーツ</h2></a></td>
+					<td style="background:#4387e9"><a id = 'ho' style="text-decoration:none"><h2>ホビー</h2></a></td>
 				</tr>
 			</table>
 			<br>
 			<br>
 
+			<table class = "detail" table rules = "none">
+				<tr>
+				<td><div id='genre'><h3>ジャンル</h3></div></td>
+				</tr>
+			</table>
+			
+			<table class = "detail" table rules = "none">
+				<tr>
+				<td><div id='title'><h4>タイトル</h4></div></td>
+				</tr>
+			</table>
+			
+
 			<table class = "streaming" table rules = "all" border = "0">
 				<tr>
-					<td><img src="data/back.jpg" width="100" height="100"></td>
+					<td><img src="data/back.jpg" id="imgb" width="100" height="100" name="imgBLink"></td>
 					<td></td>
-					<td><audio src="data/sample.wav" controls><img src="data/Start.jpg" width="100" height="100"></audio></td>
+					<td><img src="data/Start.jpg" alt="" id="img1" width="100" height="100" name="imgLink"></a></td>
 					<td></td>
-					<td><img src="data/front.png" width="100" height="100"></td>
+					<td><img src="data/front.png" id="imgf" width="100" height="100" name="imgFLink"></td>
 				</tr>
-				<!--
-				<input id="edit_02_url" style="width:100%;"></input><br>
-				<input type="button" id="button_02_load" style="width:80px; height:40px; margin:0px 0px 10px 0px;" value="読み込み">
-				<input type="button" id="button_02_play" style="width:80px; height:40px; margin:0px 0px 10px 0px;" value="再生">
-				<input type="button" id="button_02_pause" style="width:80px; height:40px; margin:0px 0px 10px 0px;" value="一時停止">
-				<input type="button" id="button_02_stop" style="width:80px; height:40px; margin:0px 0px 10px 0px;" value="停止"><br>
+			</table>
 
-				<input type="range" id="edit_02_slider" style="width:100%;" min="0" max="1.0" step="0.00001" value="0.0"></input><br>
 
-				<div style="width:100%; margin:0px 0px 10px 0px;">
-					<span style="margin:0px 50px 0px 0px;">自動再生:<input type="checkbox" id="input_02_autoplay" checked></span>
-					<span style="margin:0px 50px 0px 0px;">ループ:<input type="checkbox" id="input_02_loop"></span>
-					<span style="margin:0px 50px 0px 0px;">再生速度:<input type="number" id="input_02_rate" value="1.0" min="-10.0" max="10.0" step="0.01"></span>
-				</div>
-				-->	
-			<table>
+			<script>
+
+				var config = {
+					authDomain: "favst-dojo.firebaseapp.com",
+				    databaseURL: "https://favst-dojo.firebaseio.com",
+				    storageBucket: "favst-dojo.appspot.com",
+				    messagingSenderId: "732756833582"
+				};
+				firebase.initializeApp(config);
+
+				var db = firebase.database();
+
+	  			var storage = firebase.storage();
+
+				console.log('Genres');
+				/*
+				db.ref('/voices').once('value', function(snapshot) {
+				    console.log(snapshot.val());
+				    console.log('=====================================================================');
+				});*/
+
+				/*ALL*/
+				var IDListA = [];
+				var TitleListA = [];
+				var LinkListA = [];
+				var VURLListA = [];
+				/*IT*/
+				var IDListI = [];
+				var TitleListI = [];
+				var LinkListI = [];
+				var VURLListI = [];
+				/*entertainment*/
+				var IDListE = [];
+				var TitleListE = [];
+				var LinkListE = [];
+				var VURLListE = [];
+				/*fashion*/
+				var IDListF = [];
+				var TitleListF = [];
+				var LinkListF = [];
+				var VURLListF = [];
+				/*gourmet*/
+				var IDListG = [];
+				var TitleListG = [];
+				var LinkListG = [];
+				var VURLListG = [];
+				/*hobby*/
+				var IDListH = [];
+				var TitleListH = [];
+				var LinkListH = [];
+				var VURLListH = [];
+				/*news*/
+				var IDListN = [];
+				var TitleListN = [];
+				var LinkListN = [];
+				var VURLListN = [];
+				/*sports*/
+				var IDListS = [];
+				var TitleListS = [];
+				var LinkListS = [];
+				var VURLListS = [];
+
+				var IDList = [];
+				var TitleList = [];
+				var LinkList = [];
+				var VURLList = [];
+				var key = 0;
+
+				/*ALL*/
+
+				db.ref('/voices/all').once('value', function (snapshot) {
+				    var obj = snapshot.val();
+				    Object.keys(obj).forEach(function (id) {
+				        var val = obj[id];
+				        storage.refFromURL(val.voiceURL).getDownloadURL().then(function (voiceURL) {
+				        	IDListA.push(id);
+				        	//console.log('Title:', val.title);
+				        	TitleListA.push(val.title);
+				        	//console.log('LinkURL:', val.linkURL);
+				        	LinkListA.push(val.linkURL);
+				            //console.log('VoiceURL:', voiceURL);
+				            VURLListA.push(voiceURL);
+				        });
+				    });
+/*
+				    var d1 = new Date().getTime(); 
+   					var d2 = new Date().getTime(); 
+   					while( d2 < d1+1000*2 ){    //T秒待つ 
+       					d2=new Date().getTime(); 
+   					} */
+				});
+
+
+				/*IT*/
+				db.ref('/voices/IT').once('value', function (snapshot) {
+				    var obj = snapshot.val();
+				    Object.keys(obj).forEach(function (id) {
+				        var val = obj[id];
+				        storage.refFromURL(val.voiceURL).getDownloadURL().then(function (voiceURL) {
+				        	IDListI.push(id);
+				        	//console.log('Title:', val.title);
+				        	TitleListI.push(val.title);
+				        	//console.log('LinkURL:', val.linkURL);
+				        	LinkListI.push(val.linkURL);
+				            //console.log('VoiceURL:', voiceURL);
+				            VURLListI.push(voiceURL);
+				        });
+				    });
+				});
+
+
+				/*fashion*/
+				db.ref('/voices/fashion').once('value', function (snapshot) {
+				    var obj = snapshot.val();
+				    Object.keys(obj).forEach(function (id) {
+				        var val = obj[id];
+				        storage.refFromURL(val.voiceURL).getDownloadURL().then(function (voiceURL) {
+				        	//console.log('ID:', id);
+				        	IDListF.push(id);
+				        	//console.log('Title:', val.title);
+				        	TitleListF.push(val.title);
+				        	//console.log('LinkURL:', val.linkURL);
+				        	LinkListF.push(val.linkURL);
+				            //console.log('VoiceURL:', voiceURL);
+				            VURLListF.push(voiceURL);
+				        });
+				    });
+
+				});
+
+
+				/*gourmet*/
+				db.ref('/voices/gourmet').once('value', function (snapshot) {
+				    var obj = snapshot.val();
+				    Object.keys(obj).forEach(function (id) {
+				        var val = obj[id];
+				        storage.refFromURL(val.voiceURL).getDownloadURL().then(function (voiceURL) {
+				        	//console.log('ID:', id);
+				        	IDListG.push(id);
+				        	//console.log('Title:', val.title);
+				        	TitleListG.push(val.title);
+				        	//console.log('LinkURL:', val.linkURL);
+				        	LinkListG.push(val.linkURL);
+				            //console.log('VoiceURL:', voiceURL);
+				            VURLListG.push(voiceURL);
+				        });
+				    });
+
+				});
+
+
+				/*entertainment*/
+				db.ref('/voices/entertainment').once('value', function (snapshot) {
+				    var obj = snapshot.val();
+				    Object.keys(obj).forEach(function (id) {
+				        var val = obj[id];
+				        storage.refFromURL(val.voiceURL).getDownloadURL().then(function (voiceURL) {
+				        	//console.log('ID:', id);
+				        	IDListE.push(id);
+				        	//console.log('Title:', val.title);
+				        	TitleListE.push(val.title);
+				        	//console.log('LinkURL:', val.linkURL);
+				        	LinkListE.push(val.linkURL);
+				            //console.log('VoiceURL:', voiceURL);
+				            VURLListE.push(voiceURL);
+				        });
+				    });
+
+				});
+
+				/*hobby*/
+				db.ref('/voices/hobby').once('value', function (snapshot) {
+				    var obj = snapshot.val();
+				    Object.keys(obj).forEach(function (id) {
+				        var val = obj[id];
+				        storage.refFromURL(val.voiceURL).getDownloadURL().then(function (voiceURL) {
+				        	//console.log('ID:', id);
+				        	IDListH.push(id);
+				        	//console.log('Title:', val.title);
+				        	TitleListH.push(val.title);
+				        	//console.log('LinkURL:', val.linkURL);
+				        	LinkListH.push(val.linkURL);
+				            //console.log('VoiceURL:', voiceURL);
+				            VURLListH.push(voiceURL);
+				        });
+				    });
+
+				});
+
+
+				/*news*/
+				db.ref('/voices/news').once('value', function (snapshot) {
+				    var obj = snapshot.val();
+				    Object.keys(obj).forEach(function (id) {
+				        var val = obj[id];
+				        storage.refFromURL(val.voiceURL).getDownloadURL().then(function (voiceURL) {
+				        	//console.log('ID:', id);
+				        	IDListN.push(id);
+				        	//console.log('Title:', val.title);
+				        	TitleListN.push(val.title);
+				        	//console.log('LinkURL:', val.linkURL);
+				        	LinkListN.push(val.linkURL);
+				            //console.log('VoiceURL:', voiceURL);
+				            VURLListN.push(voiceURL);
+				        });
+				    });
+
+				});
+
+
+				/*sports*/
+				db.ref('/voices/sports').once('value', function (snapshot) {
+				    var obj = snapshot.val();
+				    Object.keys(obj).forEach(function (id) {
+				        var val = obj[id];
+				        storage.refFromURL(val.voiceURL).getDownloadURL().then(function (voiceURL) {
+				        	//console.log('ID:', id);
+				        	IDListS.push(id);
+				        	//console.log('Title:', val.title);
+				        	TitleListS.push(val.title);
+				        	//console.log('LinkURL:', val.linkURL);
+				        	LinkListS.push(val.linkURL);
+				            //console.log('VoiceURL:', voiceURL);
+				            VURLListS.push(voiceURL);
+				        });
+				    });
+
+				});
+
+
+				var isplay = false;
+				var init = true;
+				var audio = new Audio();
+
+				function rewrite3(val){
+					console.log(val["data"][0]["title"]);
+					s1 = val["data"][0]["title"];
+					s2 = val["data"][1]["title"];
+				};
+
+
+
+				function Streaming(){
+					console.log(isplay)
+					if(isplay){
+						$("#img1").attr('src','data/Start.jpg');
+						//停止処理
+						console.log("stop")
+						var x = audio.pause();
+						console.log(x)
+						//audio.currentTime = 0;
+						console.log("stop!!")
+						isplay = false;
+					}
+					else{
+						$("#img1").attr('src','data/stop.png');
+						if (init){
+							audio.src = VURLList[key];
+							init = false;
+						}
+						//再生処理
+						audio.play();
+						$("#title h4").text(TitleList[key]);
+						//console.log(x)
+						isplay = true;
+					}
+				}
+
+
+				function Back(){
+					audio.pause();
+					init = true;
+					audio.currentTime = 0;
+					$("#img1").attr('src','data/stop.png');
+					isplay = true;
+					key -= 1;
+					if(key < 0){
+						key = 0;
+					}
+					console.log(VURLList[key]);
+					audio.src = VURLList[key];
+					//再生処理
+					audio.load()
+					$("#title h4").text(TitleList[key]);
+					var x = audio.play();
+					console.log(x)
+				}
+
+				function Front(){
+					audio.currentTime = 0;
+					audio.pause();
+					init = true;
+					$("#img1").attr('src','data/stop.png');
+					isplay = true;
+					key += 1;
+					if(key > VURLList.length){
+						key = VURLList.length;
+					}
+
+					console.log(VURLList[key]);
+					audio.src = VURLList[key];
+					//再生処理
+					audio.load()
+					$("#title h4").text(TitleList[key]);
+					var x = audio.play();
+					console.log(x)
+				}
+
+				function rewrite(){
+					$("#title h4").text(TitleList[key]);
+				};
+
+
+				function setGenreA(){
+					audio.pause();
+					isplay = true;
+					$("#img1").attr('src','data/Start.jpg');
+					$("#genre h3").text("ALL");
+					IDList = IDListA;
+					TitleList = TitleListA;
+					LinkList = LinkListA;
+					VURLList = VURLListA;
+				}
+
+				function setGenreI(){
+					audio.pause();
+					isplay = true;
+					$("#img1").attr('src','data/Start.jpg');
+					$("#genre h3").text("IT");
+					IDList = IDListI;
+					TitleList = TitleListI;
+					LinkList = LinkListI;
+					VURLList = VURLListI;
+				}
+
+				function setGenreE(){
+					audio.pause();
+					isplay = true;
+					$("#img1").attr('src','data/Start.jpg');
+					$("#genre h3").text("エンタメ");
+					IDList = IDListE;
+					TitleList = TitleListE;
+					LinkList = LinkListE;
+					VURLList = VURLListE;
+				}
+
+				function setGenreF(){
+					audio.pause();
+					isplay = true;
+					$("#img1").attr('src','data/Start.jpg');
+					$("#genre h3").text("ファッション");
+					IDList = IDListF;
+					TitleList = TitleListF;
+					LinkList = LinkListF;
+					VURLList = VURLListF;
+				}
+
+				function setGenreN(){
+					audio.pause();
+					isplay = true;
+					$("#img1").attr('src','data/Start.jpg');
+					$("#genre h3").text("ニュース");
+					IDList = IDListN;
+					TitleList = TitleListN;
+					LinkList = LinkListN;
+					VURLList = VURLListN;
+				}
+
+				function setGenreG(){
+					audio.pause();
+					isplay = true;
+					$("#img1").attr('src','data/Start.jpg');
+					$("#genre h3").text("グルメ");
+					IDList = IDListG;
+					TitleList = TitleListG;
+					LinkList = LinkListG;
+					VURLList = VURLListG;
+				}
+
+				function setGenreS(){
+					audio.pause();
+					isplay = true;
+					$("#img1").attr('src','data/Start.jpg');
+					$("#genre h3").text("スポーツ");
+					IDList = IDListS;
+					TitleList = TitleListS;
+					LinkList = LinkListS;
+					VURLList = VURLListS;
+				}
+
+				function setGenreH(){
+					audio.pause();
+					isplay = true;
+					$("#img1").attr('src','data/Start.jpg');
+					$("#genre h3").text("ホビー");
+					IDList = IDListH;
+					TitleList = TitleListH;
+					LinkList = LinkListH;
+					VURLList = VURLListH;
+				}
+
+				$("#al").on("click",setGenreA);
+				$("#en").on("click",setGenreE);
+				$("#it").on("click",setGenreI);
+				$("#fa").on("click",setGenreF);
+				$("#ne").on("click",setGenreN);
+				$("#gu").on("click",setGenreG);
+				$("#sp").on("click",setGenreS);
+				$("#ho").on("click",setGenreH);
+
+				$("#imgb").on("click",Back);
+				$("#img1").on("click",Streaming);
+				$("#imgf").on("click",Front);
+				//$.getJSON("http://localhost:5000/dummy.json", rewrite4);
+	
+			</script>
+
+
 
 		</center>
   </body>

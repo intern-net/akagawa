@@ -1,5 +1,3 @@
-<script type="text/javascript">
-
 // AudioElement を作成
 var audio = new Audio();
 
@@ -13,7 +11,8 @@ audio.playbackRate = 1.5;
 audio.volume = 0.5;
 
 function play() {
-   document.getElementById("OmikujiSound").play();
+	document.imgLink.src = "data/stop.png";
+	document.getElementById("OmikujiSound").play();
 }
 
 function stop() {
@@ -21,7 +20,7 @@ function stop() {
    audio.currentTime = 0;
 }
 
-<!--
+/*
 // 匿名関数内で実行
 (function (){
 	// AudioElement を作成
@@ -83,7 +82,6 @@ function stop() {
 		audio.pause();
 	};
 
-/*
 	// 60 fps 間隔で実行する
 	setInterval(function (){
 		var v;
@@ -106,8 +104,7 @@ function stop() {
 		element_result.value = s;
 
 	},1000/60);
-	
-*/	
+
 	// スライダー変更時に実行されるイベント
 	element_slider.onchange = function (){
 		audio.currentTime = this.value;
@@ -122,7 +119,5 @@ function stop() {
 	];
 	
 })();
-//-->
-
-</script>
+*/
 

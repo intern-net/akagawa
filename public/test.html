@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>テスト用</title>
+		<script src="https://www.gstatic.com/firebasejs/3.3.2/firebase.js"></script>
+		<script src = "https://code.jquery.com/jquery-3.1.0.min.js"></script>
+		<script>	
+			var config = {
+			    apiKey: "AIzaSyA-lwTKD5HOSieJo76R2jPbJq3Ai-Nc1dU",
+			    authDomain: "internnet-akagawa-f3e2f.firebaseapp.com",
+			    databaseURL: "https://internnet-akagawa-f3e2f.firebaseio.com",
+			    storageBucket: "internnet-akagawa-f3e2f.appspot.com",
+			    messagingSenderId: "684570318093"
+		  	};
+		  	firebase.initializeApp(config);
+		 </script>
+	</head>
+	<body>
+		<h1>テスト</h1>
+		<img src="data/Start.jpg" alt="" id="img1"> 
+		<div id='no1'>id:no1</div>
+		<div id='no2' class="c2">id:no2</div>
+		<div class="c1"><a href = "" id = "no2-url">id:no3</a></dev>
+		<br>
+		<button id="btnRefresh">書き換えなさい</button>
+
+		<script>
+			var cnt = 0;
+			var s1,s2,s3,l1,l2;
+
+			function rewrite3(val){
+				console.log(val["data"][0]["title"]);
+				var s1 = val["data"][0]["title"];
+				l1 = val["data"][0]["url"];
+				s2 = val["data"][1]["title"];
+				l2 = val["data"][1]["url"];
+			};
+
+			function rewrite2(){
+				$("#img1").attr('src','data/stop.png');
+			};
+
+			function rewrite(){
+				$(".c1").text(s1);
+				$("#no1").text(s2);
+				$("#no2").text("aaaa",3);
+				cnt += 1;
+			};
+
+			function rewrite4(val){
+    			console.log(val);
+			    console.log(val['data'][0].title);
+			    
+			    var title=val['data'][0].title;
+			    var aTag=$("<a>");
+			    aTag.text(title);
+			    aTag.attr("href",val['data'][0].url);
+			    $("#no1").text("");
+			    aTag.appendTo($("#no1"));
+			};
+
+
+
+			$("#btnRefresh").on("click", rewrite);	
+			$("#img1").on("click", rewrite2);
+
+			$.getJSON("http://localhost:5000/dummy.json", rewrite4);
+			//$("#img1").on("click", rewrite4);	
+		</script>
+	<body>
+<html>
